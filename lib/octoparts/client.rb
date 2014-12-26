@@ -12,6 +12,8 @@ module Octoparts
       process(:post, path, params, headers)
     end
 
+    private
+
     def process(method, path, params, headers)
       connection = Faraday.new(url: @host) do |connection|
         connection.request :json
