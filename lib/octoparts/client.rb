@@ -12,6 +12,16 @@ module Octoparts
       process(:post, path, params, headers)
     end
 
+    # TODO: doc
+    def invoke(params)
+      resp = post("/octoparts/2", params)
+      Response.new(
+        Model::AggregateResponse.new.extend(Representer::AggregateResponseRepresenter).from_json(resp.body.to_json),
+        resp.headers,
+        resp.status
+      )
+    end
+
     private
 
     def process(method, path, params, headers)
@@ -21,7 +31,6 @@ module Octoparts
         connection.adapter Faraday.default_adapter
       end
       connection.send(method, path, params, headers)
-      # TODO: wrap response
     end
   end
 end
