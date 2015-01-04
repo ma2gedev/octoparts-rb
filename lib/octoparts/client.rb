@@ -5,8 +5,8 @@ module Octoparts
     OCTOPARTS_API_ENDPOINT_PATH = '/octoparts/2'
     CACHE_API_ENDPOINT_PATH = "#{OCTOPARTS_API_ENDPOINT_PATH}/cache"
 
-    def initialize(host: nil)
-      @host = host || 'http://localhost:9000'
+    def initialize(endpoint: nil)
+      @endpoint = endpoint || Octoparts.configuration.endpoint
     end
 
     def get(path, params = nil, headers = nil)
@@ -62,7 +62,7 @@ module Octoparts
     end
 
     def process(method, path, params, headers)
-      @connection ||= Faraday.new(url: @host) do |connection|
+      @connection ||= Faraday.new(url: @endpoint) do |connection|
         connection.adapter Faraday.default_adapter
       end
       @connection.send(method, path, params, headers)
