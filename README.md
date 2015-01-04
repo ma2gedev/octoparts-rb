@@ -1,6 +1,8 @@
 # Octoparts
 
-TODO: Write a gem description
+Octoparts Client for Ruby
+
+Octoparts is the backend services aggregator. See more details [here](http://m3dev.github.io/octoparts/).
 
 ## Installation
 
