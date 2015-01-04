@@ -27,10 +27,10 @@ module Octoparts
     private
 
     def process(method, path, params, headers)
-      connection = Faraday.new(url: @host) do |connection|
+      @connection ||= Faraday.new(url: @host) do |connection|
         connection.adapter Faraday.default_adapter
       end
-      connection.send(method, path, params, headers)
+      @connection.send(method, path, params, headers)
     end
   end
 end
