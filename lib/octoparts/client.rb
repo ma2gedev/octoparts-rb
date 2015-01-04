@@ -5,23 +5,24 @@ module Octoparts
     OCTOPARTS_API_ENDPOINT_PATH = '/octoparts/2'
     CACHE_API_ENDPOINT_PATH = "#{OCTOPARTS_API_ENDPOINT_PATH}/cache"
 
-    def initialize(endpoint: nil)
+    def initialize(endpoint: nil, headers: {})
       @endpoint = endpoint || Octoparts.configuration.endpoint
+      @headers = Octoparts.configuration.headers.merge(headers)
     end
 
-    def get(path, params = nil, headers = nil)
+    def get(path, params = nil, headers = {})
       process(:get, path, params, headers)
     end
 
-    def post(path, params = nil, headers = nil)
+    def post(path, params = nil, headers = {})
       process(:post, path, params, headers)
     end
 
     # TODO: doc
-    def invoke(params, header = {})
+    def invoke(params)
       body = params.to_json # TODO
-      header[:content_type] = 'application/json'
-      resp = post(OCTOPARTS_API_ENDPOINT_PATH, body, header)
+      headers = { content_type: 'application/json' }
+      resp = post(OCTOPARTS_API_ENDPOINT_PATH, body, headers)
       Response.new(
         Model::AggregateResponse.new.extend(Representer::AggregateResponseRepresenter).from_json(resp.body),
         resp.headers,
@@ -53,7 +54,7 @@ module Octoparts
 
     def post_cache_api(path)
       escaped_path = URI.escape("#{CACHE_API_ENDPOINT_PATH}#{path}")
-      resp = post(escaped_path, nil, nil)
+      resp = post(escaped_path)
       Response.new(
         resp.body,
         resp.headers,
@@ -65,7 +66,7 @@ module Octoparts
       @connection ||= Faraday.new(url: @endpoint) do |connection|
         connection.adapter Faraday.default_adapter
       end
-      @connection.send(method, path, params, headers)
+      @connection.send(method, path, params, @headers.merge(headers || {}))
     end
   end
 end
