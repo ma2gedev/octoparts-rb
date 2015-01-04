@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Octoparts::VERSION
   spec.authors       = ["Takayuki Matsubara"]
   spec.email         = ["takayuki.1229@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{ Ruby client for the Octoparts API }
+  spec.description   = %q{ Ruby client library for the Octoparts API }
+  spec.homepage      = "https://github.com/ma2gedev/octoparts-rb"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
