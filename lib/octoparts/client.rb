@@ -13,10 +13,12 @@ module Octoparts
     end
 
     # TODO: doc
-    def invoke(params)
-      resp = post("/octoparts/2", params)
+    def invoke(params, header = {})
+      body = params.to_json # TODO
+      header[:content_type] = 'application/json'
+      resp = post("/octoparts/2", body, header)
       Response.new(
-        Model::AggregateResponse.new.extend(Representer::AggregateResponseRepresenter).from_json(resp.body.to_json),
+        Model::AggregateResponse.new.extend(Representer::AggregateResponseRepresenter).from_json(resp.body),
         resp.headers,
         resp.status
       )
@@ -26,8 +28,6 @@ module Octoparts
 
     def process(method, path, params, headers)
       connection = Faraday.new(url: @host) do |connection|
-        connection.request :json
-        connection.response :json
         connection.adapter Faraday.default_adapter
       end
       connection.send(method, path, params, headers)

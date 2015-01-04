@@ -1,5 +1,5 @@
+require "json"
 require "faraday"
-require "faraday_middleware"
 require "octoparts/version"
 require "octoparts/client"
 require "octoparts/model"
