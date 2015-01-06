@@ -1,4 +1,3 @@
-require "json"
 require "faraday"
 require "octoparts/version"
 require "octoparts/configuration"

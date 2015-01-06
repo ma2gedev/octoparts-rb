@@ -1,3 +1,4 @@
+require 'active_support/core_ext/hash/keys'
 require 'uri'
 
 module Octoparts
@@ -20,7 +21,9 @@ module Octoparts
 
     # TODO: doc
     def invoke(params)
-      body = params.to_json # TODO
+      stringify_params = params.deep_stringify_keys
+      aggregate_request = Model::AggregateRequest.new.extend(Representer::AggregateRequestRepresenter).from_hash(stringify_params)
+      body = aggregate_request.to_json(camelize: true)
       headers = { content_type: 'application/json' }
       resp = post(OCTOPARTS_API_ENDPOINT_PATH, body, headers)
       Response.new(
