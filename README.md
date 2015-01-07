@@ -33,18 +33,20 @@ client = Octoparts::Client.new
 
 # invoke aggregate request
 response = client.invoke({
-  "request_meta" => {
-    "id" => "test",
-    "timeout" => 500
+  request_meta: {
+    id: "test",
+    timeout: 500
   },
-  "requests" => [
-    "part_id" => "echo",
-    "params" => [
-      {
-        "key" => "fooValue",
-        "value" => "test"
-      }
-    ]
+  requests: [
+    {
+      part_id: "echo",
+      params: [
+        {
+          key: "fooValue",
+          value: "test"
+        }
+      ]
+    }
   ]
 })
 
