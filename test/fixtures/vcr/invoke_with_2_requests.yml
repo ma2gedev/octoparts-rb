@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:9000/octoparts/2
+    body:
+      encoding: UTF-8
+      string: '{"requestMeta":{"id":"test","timeout":500},"requests":[{"partId":"echo","params":[{"key":"fooValue","value":"test"}]},{"partId":"echo","params":[{"key":"fooValue","value":"hoge"}]}]}'
+    headers:
+      User-Agent:
+      - Octoparts client ruby/0.0.2
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '559'
+    body:
+      encoding: UTF-8
+      string: '{"responseMeta":{"id":"test","processTime":10},"responses":[{"partId":"echo","id":"echo","cookies":[],"statusCode":200,"mimeType":"application/json","charset":"ISO-8859-1","cacheControl":{"noStore":false,"noCache":false},"contents":"{\"foo\":
+        \"test\"}\n","warnings":[],"errors":[],"retrievedFromCache":true},{"partId":"echo","id":"echo","cookies":[],"statusCode":200,"mimeType":"application/json","charset":"ISO-8859-1","cacheControl":{"noStore":false,"noCache":false},"contents":"{\"foo\":
+        \"hoge\"}\n","warnings":[],"errors":[],"retrievedFromCache":true}]}'
+    http_version: 
+  recorded_at: Wed, 07 Jan 2015 22:48:47 GMT
+recorded_with: VCR 2.9.3
