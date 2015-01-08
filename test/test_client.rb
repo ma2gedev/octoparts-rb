@@ -35,7 +35,7 @@ class TestClient < Test::Unit::TestCase
 
     test "normal invoke with AggregateRequest model" do
       VCR.use_cassette 'invoke_with_aggregate_request' do
-        aggregate_request = Octoparts.create_aggregate_request do
+        aggregate_request = Octoparts.build_aggregate_request do
           request_meta(id: 'test', timeout: 500)
           requests do
             part_request(part_id: 'echo').add_param('fooValue', 'test')

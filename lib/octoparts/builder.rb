@@ -1,10 +1,5 @@
 module Octoparts
   class AggregateRequestBuilder
-    def self.build(&block)
-      builder = AggregateRequestBuilder.new(&block)
-      builder.build
-    end
-
     def initialize(&block)
       self.instance_eval(&block)
     end

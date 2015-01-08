@@ -18,8 +18,9 @@ module Octoparts
       configuration.instance_eval(&block)
     end
 
-    def create_aggregate_request(&block)
-      Octoparts::AggregateRequestBuilder.build(&block)
+    def build_aggregate_request(&block)
+      builder = Octoparts::AggregateRequestBuilder.new(&block)
+      builder.build
     end
   end
 end
