@@ -31,7 +31,7 @@ end
 # create client
 client = Octoparts::Client.new
 
-# invoke aggregate request
+# invoke aggregate request with Hash
 response = client.invoke({
   request_meta: {
     id: "test",
@@ -52,6 +52,16 @@ response = client.invoke({
 
 response.status
 response.body.responses.first.contents
+
+# invoke with builder
+aggregate_request = Octoparts.create_aggregate_request do
+  request_meta(id: 'test', timeout: 500)
+  requests do
+    part_request(part_id: 'echo').add_param('fooValue', 'test')
+  end
+end
+response = client.invoke(aggregate_request)
+
 ```
 
 ## Contributing
