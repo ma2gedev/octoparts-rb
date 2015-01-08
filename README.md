@@ -1,5 +1,6 @@
 # Octoparts
 
+[![Build Status](https://travis-ci.org/ma2gedev/octoparts-rb.svg)](https://travis-ci.org/ma2gedev/octoparts-rb)
 [![Coverage Status](https://img.shields.io/coveralls/ma2gedev/octoparts-rb.svg)](https://coveralls.io/r/ma2gedev/octoparts-rb)
 
 Octoparts Client for Ruby
