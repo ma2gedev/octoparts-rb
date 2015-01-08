@@ -33,6 +33,25 @@ class TestClient < Test::Unit::TestCase
       end
     end
 
+    test "normal invoke with AggregateRequest model" do
+      VCR.use_cassette 'invoke_with_aggregate_request' do
+        aggregate_request = Octoparts.create_aggregate_request do
+          request_meta(id: 'test', timeout: 500)
+          requests do
+            part_request(part_id: 'echo').add_param('fooValue', 'test')
+          end
+        end
+        response = @client.invoke(aggregate_request)
+        body = response.body
+        assert { body.class == Octoparts::Model::AggregateResponse }
+        assert { body.response_meta.class == Octoparts::Model::ResponseMeta }
+        assert { body.responses.first.class == Octoparts::Model::PartResponse }
+        assert { body.responses.first.cache_control.class == Octoparts::Model::CacheControl }
+        assert { body.responses.size == 1 }
+        assert { body.responses.first.contents =~ /"test"/ }
+      end
+    end
+
     test "normal invoke when 2 requests" do
       VCR.use_cassette 'invoke_with_2_requests' do
         response = @client.invoke({

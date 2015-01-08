@@ -1,5 +1,7 @@
 module Octoparts
-  class Error < StandardError
+  class Error < StandardError; end
+
+  class ResponseError < Error
     attr_reader :response
 
     def self.from_response(response)
@@ -22,6 +24,7 @@ module Octoparts
     end
   end
 
-  class ClientError < Error; end
-  class ServerError < Error; end
+  class ClientError < ResponseError; end
+  class ServerError < ResponseError; end
+  class ArgumentError < Error; end
 end

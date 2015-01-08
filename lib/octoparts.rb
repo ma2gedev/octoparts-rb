@@ -6,6 +6,7 @@ require "octoparts/client"
 require "octoparts/model"
 require "octoparts/representer"
 require "octoparts/response"
+require "octoparts/builder"
 
 module Octoparts
   class << self
@@ -15,6 +16,10 @@ module Octoparts
 
     def configure(&block)
       configuration.instance_eval(&block)
+    end
+
+    def create_aggregate_request(&block)
+      Octoparts::AggregateRequestBuilder.build(&block)
     end
   end
 end

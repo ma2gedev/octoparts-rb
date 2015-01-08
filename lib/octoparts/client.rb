@@ -21,8 +21,15 @@ module Octoparts
 
     # TODO: doc
     def invoke(params)
-      stringify_params = params.deep_stringify_keys
-      aggregate_request = Model::AggregateRequest.new.extend(Representer::AggregateRequestRepresenter).from_hash(stringify_params)
+      aggregate_request = case params
+                          when Hash
+                            stringify_params = params.deep_stringify_keys
+                            Model::AggregateRequest.new.extend(Representer::AggregateRequestRepresenter).from_hash(stringify_params)
+                          when Octoparts::Model::AggregateRequest
+                            params.extend(Representer::AggregateRequestRepresenter)
+                          else
+                            raise Octopart::ArgumentError
+                          end
       body = aggregate_request.to_json(camelize: true)
       headers = { content_type: 'application/json' }
       resp = post(OCTOPARTS_API_ENDPOINT_PATH, body, headers)
@@ -70,7 +77,7 @@ module Octoparts
         connection.adapter Faraday.default_adapter
       end
       response = @connection.send(method, path, params, @headers.merge(headers || {}))
-      if error = Octoparts::Error.from_response(response)
+      if error = Octoparts::ResponseError.from_response(response)
         raise error
       end
       response
