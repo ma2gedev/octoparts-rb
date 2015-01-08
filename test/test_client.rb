@@ -71,5 +71,17 @@ class TestClient < Test::Unit::TestCase
         assert { body.responses.last.contents =~ /"hoge"/ }
       end
     end
+
+    test "invalid parameters" do
+      VCR.use_cassette 'invoke_with_invalid_parameters' do
+        assert_raise Octoparts::ClientError do
+          response = @client.invoke({
+            "request_meta" => {
+              "timeout" => 500
+            }
+          })
+        end
+      end
+    end
   end
 end

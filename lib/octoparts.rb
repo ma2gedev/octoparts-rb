@@ -1,6 +1,7 @@
 require "faraday"
 require "octoparts/version"
 require "octoparts/configuration"
+require "octoparts/error"
 require "octoparts/client"
 require "octoparts/model"
 require "octoparts/representer"

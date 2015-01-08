@@ -69,7 +69,11 @@ module Octoparts
       @connection ||= Faraday.new(url: @endpoint) do |connection|
         connection.adapter Faraday.default_adapter
       end
-      @connection.send(method, path, params, @headers.merge(headers || {}))
+      response = @connection.send(method, path, params, @headers.merge(headers || {}))
+      if error = Octoparts::Error.from_response(response)
+        raise error
+      end
+      response
     end
   end
 end
