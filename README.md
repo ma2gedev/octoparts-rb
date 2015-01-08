@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/ma2gedev/octoparts-rb.svg)](https://travis-ci.org/ma2gedev/octoparts-rb)
 [![Coverage Status](https://img.shields.io/coveralls/ma2gedev/octoparts-rb.svg)](https://coveralls.io/r/ma2gedev/octoparts-rb)
 [![Code Climate](https://codeclimate.com/github/ma2gedev/octoparts-rb/badges/gpa.svg)](https://codeclimate.com/github/ma2gedev/octoparts-rb)
+[![endorse](https://api.coderwall.com/ma2gedev/endorsecount.png)](https://coderwall.com/ma2gedev)
 
 Octoparts Client for Ruby
 
