@@ -1,5 +1,7 @@
 # Octoparts
 
+[![Coverage Status](https://img.shields.io/coveralls/ma2gedev/octoparts-rb.svg)](https://coveralls.io/r/ma2gedev/octoparts-rb)
+
 Octoparts Client for Ruby
 
 Octoparts is the backend services aggregator. See more details [here](http://m3dev.github.io/octoparts/).
