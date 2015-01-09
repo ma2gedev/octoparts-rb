@@ -107,4 +107,27 @@ class TestClient < Test::Unit::TestCase
       end
     end
   end
+
+  sub_test_case "timeout" do
+    teardown do
+      Octoparts.configure do |c|
+        c.timeout_sec = nil
+      end
+    end
+
+    test "timeout_sec option" do
+      assert_raise Faraday::TimeoutError do
+        Octoparts::Client.new(timeout_sec: 0).get('/')
+      end
+    end
+
+    test "open_timeout_sec option" do
+      Octoparts.configure do |c|
+        c.timeout_sec = 0
+      end
+      assert_raise Faraday::TimeoutError do
+        Octoparts::Client.new.get('/')
+      end
+    end
+  end
 end
