@@ -6,7 +6,7 @@ require 'octoparts'
 
 require 'pry'
 require 'test/unit'
-require 'webmock'
+require 'webmock/test_unit'
 require 'vcr'
 
 VCR.configure do |c|

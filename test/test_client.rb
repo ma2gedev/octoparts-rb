@@ -41,6 +41,7 @@ class TestClient < Test::Unit::TestCase
             part_request(part_id: 'echo').add_param('fooValue', 'test')
           end
         end
+        stub_request(:post, 'localhost:9000')
         response = @client.invoke(aggregate_request)
         body = response.body
         assert { body.class == Octoparts::Model::AggregateResponse }
@@ -49,6 +50,9 @@ class TestClient < Test::Unit::TestCase
         assert { body.responses.first.cache_control.class == Octoparts::Model::CacheControl }
         assert { body.responses.size == 1 }
         assert { body.responses.first.contents =~ /"test"/ }
+        assert_requested(:post, "http://localhost:9000/octoparts/2") do |req|
+          req.body == '{"requestMeta":{"id":"test","timeout":500},"requests":[{"partId":"echo","params":[{"key":"fooValue","value":"test"}]}]}'
+        end
       end
     end
 
