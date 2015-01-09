@@ -73,8 +73,8 @@ module Octoparts
         request.url(path, params)
         request.body = body if body
         request.headers.merge!(headers)
-        request.options.timeout = @timeout_sec if @timeout_sec
-        request.options.open_timeout = @open_timeout_sec if @open_timeout_sec
+        request.options[:timeout] = @timeout_sec if @timeout_sec
+        request.options[:open_timeout] = @open_timeout_sec if @open_timeout_sec
       end
       if error = Octoparts::ResponseError.from_response(response)
         raise error

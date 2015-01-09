@@ -1,4 +1,5 @@
 require 'helper'
+require 'active_support/core_ext/string/inflections'
 
 class TestClient < Test::Unit::TestCase
   def setup
@@ -116,6 +117,7 @@ class TestClient < Test::Unit::TestCase
         # we should find other way
         c.endpoint = 'http://octoparts.herokuapp.com'
       end
+      @exception_class = defined?(Faraday::TimeoutError) ? Faraday::TimeoutError : Faraday::Error::TimeoutError
     end
 
     teardown do
@@ -126,7 +128,7 @@ class TestClient < Test::Unit::TestCase
     end
 
     test "timeout_sec option" do
-      assert_raise Faraday::TimeoutError do
+      assert_raise @exception_class do
         Octoparts::Client.new(timeout_sec: 0).get('/')
       end
     end
@@ -135,7 +137,7 @@ class TestClient < Test::Unit::TestCase
       Octoparts.configure do |c|
         c.timeout_sec = 0
       end
-      assert_raise Faraday::TimeoutError do
+      assert_raise @exception_class do
         Octoparts::Client.new.get('/')
       end
     end
