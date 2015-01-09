@@ -109,8 +109,18 @@ class TestClient < Test::Unit::TestCase
   end
 
   sub_test_case "timeout" do
+    setup do
+      @endpoint = Octoparts.configuration.endpoint
+      Octoparts.configure do |c|
+        # avoiding connection failed error, sorry heroku...
+        # we should find other way
+        c.endpoint = 'http://octoparts.herokuapp.com'
+      end
+    end
+
     teardown do
       Octoparts.configure do |c|
+        c.endpoint = @endpoint
         c.timeout_sec = nil
       end
     end
