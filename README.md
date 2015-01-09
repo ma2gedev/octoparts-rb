@@ -32,8 +32,8 @@ Or install it yourself as:
 # configuration
 Octoparts.configure do |config|
   config.endpoint = 'http://localhost:9000'
-  config.timeout = 3       # open/read timeout in seconds
-  config.open_timeout = 1  # connection open timeout in seconds
+  config.timeout_sec = 3       # open/read timeout in seconds
+  config.open_timeout_sec = 1  # connection open timeout in seconds
 end
 
 # create client

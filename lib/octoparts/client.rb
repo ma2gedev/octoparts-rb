@@ -6,10 +6,10 @@ module Octoparts
     OCTOPARTS_API_ENDPOINT_PATH = '/octoparts/2'
     CACHE_API_ENDPOINT_PATH = "#{OCTOPARTS_API_ENDPOINT_PATH}/cache"
 
-    def initialize(endpoint: nil, headers: {}, timeout: nil, open_timeout: nil)
+    def initialize(endpoint: nil, headers: {}, timeout_sec: nil, open_timeout_sec: nil)
       @endpoint = endpoint || Octoparts.configuration.endpoint
-      @timeout = timeout || Octoparts.configuration.timeout
-      @open_timeout = open_timeout || Octoparts.configuration.open_timeout
+      @timeout_sec = timeout_sec || Octoparts.configuration.timeout_sec
+      @open_timeout_sec = open_timeout_sec || Octoparts.configuration.open_timeout_sec
       @headers = Octoparts.configuration.headers.merge(headers)
     end
 
@@ -73,8 +73,8 @@ module Octoparts
         request.url(path, params)
         request.body = body if body
         request.headers.merge!(headers)
-        request.options.timeout = @timeout if @timeout
-        request.options.open_timeout = @open_timeout if @open_timeout
+        request.options.timeout = @timeout_sec if @timeout_sec
+        request.options.open_timeout = @open_timeout_sec if @open_timeout_sec
       end
       if error = Octoparts::ResponseError.from_response(response)
         raise error

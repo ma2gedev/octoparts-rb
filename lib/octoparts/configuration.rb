@@ -2,7 +2,7 @@ module Octoparts
   class Configuration
     USER_AGENT = "Octoparts client ruby/#{Octoparts::VERSION}"
 
-    attr_accessor :endpoint, :headers, :timeout, :open_timeout
+    attr_accessor :endpoint, :headers, :timeout_sec, :open_timeout_sec
 
     def initialize
       # set default values
@@ -10,8 +10,8 @@ module Octoparts
       @headers = {
         'User-Agent' => USER_AGENT
       }
-      @timeout = nil
-      @open_timeout = nil
+      @timeout_sec = nil
+      @open_timeout_sec = nil
     end
   end
 end
