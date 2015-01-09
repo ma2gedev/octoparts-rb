@@ -3,5 +3,8 @@ rvm:
   - 2.0.0-p598
   - 2.1.5
   - 2.2.0
+gemfile:
+  - Gemfile
+  - gemfiles/faraday-0_8_8.gemfile
 sudo: false
 cache: bundler
