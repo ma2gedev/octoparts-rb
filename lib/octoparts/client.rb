@@ -6,17 +6,19 @@ module Octoparts
     OCTOPARTS_API_ENDPOINT_PATH = '/octoparts/2'
     CACHE_API_ENDPOINT_PATH = "#{OCTOPARTS_API_ENDPOINT_PATH}/cache"
 
-    def initialize(endpoint: nil, headers: {})
+    def initialize(endpoint: nil, headers: {}, timeout: nil, open_timeout: nil)
       @endpoint = endpoint || Octoparts.configuration.endpoint
+      @timeout = timeout || Octoparts.configuration.timeout
+      @open_timeout = open_timeout || Octoparts.configuration.open_timeout
       @headers = Octoparts.configuration.headers.merge(headers)
     end
 
-    def get(path, params = nil, headers = {})
-      process(:get, path, params, headers)
+    def get(path, params = {}, headers = {})
+      process(:get, path, params, nil, headers)
     end
 
-    def post(path, params = nil, headers = {})
-      process(:post, path, params, headers)
+    def post(path, body = nil, headers = {})
+      process(:post, path, {}, body, headers)
     end
 
     # TODO: doc
@@ -72,11 +74,17 @@ module Octoparts
       )
     end
 
-    def process(method, path, params, headers)
+    def process(method, path, params, body, headers)
       @connection ||= Faraday.new(url: @endpoint) do |connection|
         connection.adapter Faraday.default_adapter
       end
-      response = @connection.send(method, path, params, @headers.merge(headers || {}))
+      response = @connection.send(method) do |request|
+        request.url(path, params)
+        request.body = body if body
+        request.headers.merge!(headers)
+        request.options.timeout = @timeout if @timeout
+        request.options.open_timeout = @open_timeout if @open_timeout
+      end
       if error = Octoparts::ResponseError.from_response(response)
         raise error
       end
