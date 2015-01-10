@@ -115,6 +115,24 @@ class TestClient < Test::Unit::TestCase
     end
   end
 
+  sub_test_case "#invalidate_cache" do
+    test "post /invalidate/part/PART_ID" do
+      VCR.use_cassette 'invalidate_cache_with_part_id' do
+        stub_request(:post, 'localhost:9000')
+        @client.invalidate_cache('echo')
+        assert_requested(:post, 'http://localhost:9000/octoparts/2/cache/invalidate/part/echo')
+      end
+    end
+
+    test "post /invalidate/part/PART_ID/PARAM_NAME/PARAM_VALUE" do
+      VCR.use_cassette 'invalidate_cache_with_part_id_and_key_value' do
+        stub_request(:post, 'localhost:9000')
+        @client.invalidate_cache('echo', param_name: 'fooValue', param_value: 'test')
+        assert_requested(:post, 'http://localhost:9000/octoparts/2/cache/invalidate/part/echo/fooValue/test')
+      end
+    end
+  end
+
   sub_test_case "timeout" do
     setup do
       @endpoint = Octoparts.configuration.endpoint
