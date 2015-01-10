@@ -5,6 +5,19 @@ class TestOctoparts < Test::Unit::TestCase
     refute_nil ::Octoparts::VERSION
   end
 
+  test ".configuration" do
+    assert { Octoparts.configuration.class == Octoparts::Configuration }
+  end
+
+  test ".configure" do
+    Octoparts.configure { |c| c.open_timeout_sec = 2 }
+    teardown do
+      Octoparts.configure { |c| c.open_timeout_sec = nil }
+    end
+
+    assert { Octoparts.configuration.open_timeout_sec == 2 }
+  end
+
   test "Octoparts.create_aggregate_request" do
     aggregate_request = Octoparts.build_aggregate_request do
       request_meta(id: 'id')
