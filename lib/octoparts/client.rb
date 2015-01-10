@@ -90,7 +90,7 @@ module Octoparts
                           when Octoparts::Model::AggregateRequest
                             model.extend(Representer::AggregateRequestRepresenter)
                           else
-                            raise Octopart::ArgumentError
+                            raise Octoparts::ArgumentError
                           end
       aggregate_request.to_json(camelize: true)
     end

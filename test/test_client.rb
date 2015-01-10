@@ -107,6 +107,12 @@ class TestClient < Test::Unit::TestCase
         end
       end
     end
+
+    test "invalid argument" do
+      assert_raise Octoparts::ArgumentError do
+        @client.invoke(nil)
+      end
+    end
   end
 
   sub_test_case "timeout" do
