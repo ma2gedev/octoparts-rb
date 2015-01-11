@@ -9,13 +9,15 @@ class TestOctoparts < Test::Unit::TestCase
     assert { Octoparts.configuration.class == Octoparts::Configuration }
   end
 
-  test ".configure" do
-    Octoparts.configure { |c| c.open_timeout_sec = 2 }
+  sub_test_case ".configure" do
     teardown do
       Octoparts.configure { |c| c.open_timeout_sec = nil }
     end
 
-    assert { Octoparts.configuration.open_timeout_sec == 2 }
+    test "open_timeout_sec is set at Octoparts.configure" do
+      Octoparts.configure { |c| c.open_timeout_sec = 2 }
+      assert { Octoparts.configuration.open_timeout_sec == 2 }
+    end
   end
 
   test "Octoparts.create_aggregate_request" do
