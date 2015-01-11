@@ -133,6 +133,24 @@ class TestClient < Test::Unit::TestCase
     end
   end
 
+  sub_test_case "#invalidate_cache_group" do
+    test "post /invalidate/cache-group/GROUP_NAME/parts" do
+      VCR.use_cassette 'invalidate_cache_group_with_group_name' do
+        stub_request(:post, 'localhost:9000')
+        @client.invalidate_cache_group('echo_group')
+        assert_requested(:post, 'http://localhost:9000/octoparts/2/cache/invalidate/cache-group/echo_group/parts')
+      end
+    end
+
+    test "post /invalidate/cache-group/GROUP_NAME/params/PARAM_VALUE" do
+      VCR.use_cassette 'invalidate_cache_group_with_param_value' do
+        stub_request(:post, 'localhost:9000')
+        @client.invalidate_cache_group('echo_group', param_value: 'fooValue')
+        assert_requested(:post, 'http://localhost:9000/octoparts/2/cache/invalidate/cache-group/echo_group/params/fooValue')
+      end
+    end
+  end
+
   sub_test_case "timeout" do
     setup do
       @endpoint = Octoparts.configuration.endpoint
