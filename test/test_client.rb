@@ -184,4 +184,13 @@ class TestClient < Test::Unit::TestCase
       end
     end
   end
+
+  sub_test_case "error case" do
+    test "500 error" do
+      stub_request(:any, 'localhost:9000/500').to_return(status: 500, body: 'NG', headers: { 'Content-Length' => 2})
+      assert_raise Octoparts::ServerError do
+        Octoparts::Client.new(timeout_sec: 0).get('/500')
+      end
+    end
+  end
 end
