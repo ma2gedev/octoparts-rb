@@ -70,6 +70,12 @@ aggregate_request = Octoparts.build_aggregate_request do
 end
 response = client.invoke(aggregate_request)
 
+# cache invalidation
+## post /octoparts/2/cache/invalidate/part/echo/fooValue/test
+client.invalidate_cache('echo', param_name: 'fooValue', param_value: 'test')
+
+## post /octoparts/2/cache/invalidate/cache-group/echo_group/params/fooValue
+client.invalidate_cache_group('echo_group', param_value: 'fooValue')
 ```
 
 ## Contributing
