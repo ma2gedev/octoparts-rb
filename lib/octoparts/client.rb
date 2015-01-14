@@ -21,7 +21,9 @@ module Octoparts
       process(:post, path, {}, body, headers)
     end
 
-    # TODO: doc
+    # Post an AggregateRequest and return AggregateResponse.
+    # @param [Octoparts::Model::AggregateRequest, Hash] params aggregate request
+    # @return [Octoparts::Response] response object
     def invoke(params)
       body = create_request_body(params)
       headers = { content_type: 'application/json' }
