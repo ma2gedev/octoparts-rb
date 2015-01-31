@@ -3,8 +3,11 @@ module Octoparts
     class PartRequest
       attr_accessor :part_id, :id, :params
 
+      def initialize
+        @params = []
+      end
+
       def add_param(key, value)
-        @params ||= []
         @params << Octoparts::Model::PartRequestParam.create(key, value)
         self
       end
