@@ -1,4 +1,4 @@
-Copyright (c) 2014-2015 Takayuki Matsubara
+Copyright (c) 2014-2017 Takayuki Matsubara, M3, Inc.
 
 MIT License
 

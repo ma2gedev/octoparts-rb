@@ -1,10 +1,6 @@
 # Octoparts
 
 [![Gem Version](https://badge.fury.io/rb/octoparts.svg)](http://badge.fury.io/rb/octoparts)
-[![Build Status](https://travis-ci.org/ma2gedev/octoparts-rb.svg)](https://travis-ci.org/ma2gedev/octoparts-rb)
-[![Coverage Status](https://img.shields.io/coveralls/ma2gedev/octoparts-rb.svg)](https://coveralls.io/r/ma2gedev/octoparts-rb)
-[![Code Climate](https://codeclimate.com/github/ma2gedev/octoparts-rb/badges/gpa.svg)](https://codeclimate.com/github/ma2gedev/octoparts-rb)
-[![endorse](https://api.coderwall.com/ma2gedev/endorsecount.png)](https://coderwall.com/ma2gedev)
 
 Octoparts Client for Ruby
 
@@ -80,7 +76,7 @@ client.invalidate_cache_group('echo_group', param_value: 'fooValue')
 
 ## Contributing
 
-1. Fork it ( https://github.com/ma2gedev/octoparts/fork )
+1. Fork it ( https://github.com/m3dev/octoparts/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
